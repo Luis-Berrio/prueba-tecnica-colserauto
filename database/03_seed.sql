@@ -1,7 +1,7 @@
 INSERT INTO vendedor (nombre, documento, email, telefono) VALUES
   ('Luis Berrio', '1065853001', 'luis.berrio@colserauto.test', '3105234567'),
   ('Isabella Corzo', '1067598452', 'isa.corzo@colserauto.test', '3005234567'),
-  ('Andrés Torres', '1000000001', 'andres.torres@colserauto.test', '3000000001')
+  ('Andrés Torres', '1000000001', 'andres.torres@colserauto.test', '3000000001'),
   ('Gisela Luque', '77864678', 'gisela.luque@colserauto.test', '3151234567'),
   ('Carlos Ramírez', '1012345678', 'carlos.ramirez@colserauto.test', '3001234567');
 
