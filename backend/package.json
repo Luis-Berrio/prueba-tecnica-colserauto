@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "node --env-file=.env ./node_modules/.bin/tsx watch src/server.ts",
     "build": "tsc",
@@ -9,10 +8,9 @@
     "db:pull": "node --env-file=.env ./node_modules/.bin/prisma db pull",
     "db:generate": "node --env-file=.env ./node_modules/.bin/prisma generate"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Luis Berrio",
   "license": "ISC",
-  "description": "",
+  "description": "API REST de ventas (Venta, Producto y Vendedor) con Node.js, Express y PostgreSQL",
   "type": "module",
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
