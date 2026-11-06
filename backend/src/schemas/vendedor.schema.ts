@@ -9,7 +9,3 @@ export const vendedorSchema = z.object({
 });
 
 export type VendedorInput = z.infer<typeof vendedorSchema>;
-
-export const idParamSchema = z.object({
-  id: z.coerce.number().int().positive(),
-});

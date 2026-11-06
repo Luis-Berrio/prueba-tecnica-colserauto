@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { vendedorService } from "../services/vendedor.service.js";
-import { idParamSchema, vendedorSchema } from "../schemas/vendedor.schema.js";
+import { vendedorSchema } from "../schemas/vendedor.schema.js";
+import { idParamSchema } from "../schemas/common.schema.js";
 
 export const vendedorController = {
   async listar(_req: Request, res: Response) {
