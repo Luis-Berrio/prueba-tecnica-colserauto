@@ -1,1 +1,53 @@
-<p>vendedores works!</p>
+<div class="encabezado">
+  <h1>Vendedores</h1>
+  <button mat-flat-button color="primary" (click)="abrirFormulario()">
+    <mat-icon>add</mat-icon>
+    Nuevo vendedor
+  </button>
+</div>
+
+@if (cargando()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+<table mat-table [dataSource]="vendedores()" class="mat-elevation-z2">
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+    <td mat-cell *matCellDef="let v">{{ v.nombre }}</td>
+  </ng-container>
+  <ng-container matColumnDef="identificacion">
+    <th mat-header-cell *matHeaderCellDef>Identificación</th>
+    <td mat-cell *matCellDef="let v">{{ v.identificacion }}</td>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Correo</th>
+    <td mat-cell *matCellDef="let v">{{ v.email }}</td>
+  </ng-container>
+  <ng-container matColumnDef="telefono">
+    <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+    <td mat-cell *matCellDef="let v">{{ v.telefono }}</td>
+  </ng-container>
+  <ng-container matColumnDef="activo">
+    <th mat-header-cell *matHeaderCellDef>Estado</th>
+    <td mat-cell *matCellDef="let v">{{ v.activo ? "Activo" : "Inactivo" }}</td>
+  </ng-container>
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let v" class="acciones">
+      <button mat-icon-button aria-label="Editar" (click)="abrirFormulario(v)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Eliminar" (click)="eliminar(v)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+  <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell vacio" [attr.colspan]="columnas.length">
+      No hay vendedores
+    </td>
+  </tr>
+</table>

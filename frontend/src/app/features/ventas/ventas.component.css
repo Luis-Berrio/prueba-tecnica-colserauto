@@ -1,0 +1,19 @@
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+table {
+  width: 100%;
+}
+
+.acciones {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.vacio {
+  padding: 24px;
+  text-align: center;
+}

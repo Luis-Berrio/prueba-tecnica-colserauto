@@ -1,0 +1,9 @@
+.formulario {
+  display: flex;
+  flex-direction: column;
+  min-width: 360px;
+}
+.total {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}

@@ -14,6 +14,29 @@ function sendError(
     .json({ error: { message, ...(details !== undefined && { details }) } });
 }
 
+// Mensajes para el usuario según qué restricción de la base de datos se violó.
+const MENSAJES_DUPLICADO: Record<string, string> = {
+  vendedor_identificacion_key: "Ya existe un vendedor con esa identificación",
+  vendedor_email_key: "Ya existe un vendedor con ese correo",
+  producto_codigo_key: "Ya existe un producto con ese código",
+};
+
+// Al borrar un registro que otras tablas usan: el modelo indica cuál se intentó borrar.
+const MENSAJES_CON_VENTAS: Record<string, string> = {
+  vendedor:
+    "No se puede eliminar el vendedor porque tiene ventas registradas. Elimina esas ventas primero.",
+  producto:
+    "No se puede eliminar el producto porque tiene ventas registradas. Elimina esas ventas primero.",
+};
+
+// Con el adaptador de PostgreSQL, el nombre de la restricción viaja dentro de meta.
+function nombreRestriccion(err: Prisma.PrismaClientKnownRequestError): string | undefined {
+  const adaptador = err.meta?.driverAdapterError as
+    | { cause?: { constraint?: { index?: string } } }
+    | undefined;
+  return adaptador?.cause?.constraint?.index;
+}
+
 export function errorHandler(
   err: unknown,
   _req: Request,
@@ -41,16 +64,25 @@ export function errorHandler(
 
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
-      case "P2002":
-        sendError(res, 409, "Ya existe un registro con ese valor");
-        return;
-      case "P2003":
+      case "P2002": {
+        const restriccion = nombreRestriccion(err) ?? "";
         sendError(
           res,
           409,
-          "La operación viola una relación con otros registros",
+          MENSAJES_DUPLICADO[restriccion] ?? "Ya existe un registro con ese valor",
         );
         return;
+      }
+      case "P2003": {
+        const modelo = String(err.meta?.modelName ?? "");
+        sendError(
+          res,
+          409,
+          MENSAJES_CON_VENTAS[modelo] ??
+            "No se puede completar la operación porque el registro está relacionado con otros",
+        );
+        return;
+      }
       case "P2025":
         sendError(res, 404, "Registro no encontrado");
         return;

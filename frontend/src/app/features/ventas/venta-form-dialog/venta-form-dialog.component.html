@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>
+  {{ venta ? "Editar venta #" + venta.id : "Nueva venta" }}
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="guardar()">
+  <mat-dialog-content class="formulario">
+    <mat-form-field appearance="outline">
+      <mat-label>Vendedor</mat-label>
+      <mat-select formControlName="vendedor_id">
+        @for (v of vendedores(); track v.id) {
+          <mat-option [value]="v.id">{{ v.nombre }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.vendedor_id.hasError("required")) {
+        <mat-error>Selecciona un vendedor</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Producto</mat-label>
+      <mat-select formControlName="producto_id">
+        @for (p of productos(); track p.id) {
+          <mat-option [value]="p.id"
+            >{{ p.codigo }} · {{ p.nombre }}</mat-option
+          >
+        }
+      </mat-select>
+      @if (productoSeleccionado(); as producto) {
+        <mat-hint>
+          Precio
+          {{ producto.precio | currency: "COP" : "symbol-narrow" : "1.0-0" }} ·
+          Stock actual: {{ producto.stock }}
+        </mat-hint>
+      }
+      @if (form.controls.producto_id.hasError("required")) {
+        <mat-error>Selecciona un producto</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" min="1" formControlName="cantidad" />
+      @if (form.controls.cantidad.hasError("required")) {
+        <mat-error>La cantidad es obligatoria</mat-error>
+      } @else if (
+        form.controls.cantidad.hasError("min") ||
+        form.controls.cantidad.hasError("pattern")
+      ) {
+        <mat-error>La cantidad debe ser un entero mayor que 0</mat-error>
+      }
+    </mat-form-field>
+
+    <p class="total">
+      Total estimado:
+      <strong>{{
+        totalEstimado() | currency: "COP" : "symbol-narrow" : "1.0-0"
+      }}</strong>
+    </p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="guardando()"
+    >
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</form>
