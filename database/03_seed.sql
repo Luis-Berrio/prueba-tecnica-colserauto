@@ -1,4 +1,4 @@
-INSERT INTO vendedor (nombre, documento, email, telefono) VALUES
+INSERT INTO vendedor (nombre, identificacion, email, telefono) VALUES
   ('Luis Berrio', '1065853001', 'luis.berrio@colserauto.test', '3105234567'),
   ('Isabella Corzo', '1067598452', 'isa.corzo@colserauto.test', '3005234567'),
   ('Andrés Torres', '1000000001', 'andres.torres@colserauto.test', '3000000001'),

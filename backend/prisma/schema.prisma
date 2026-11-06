@@ -19,13 +19,13 @@ model producto {
 }
 
 model vendedor {
-  id        Int     @id @default(autoincrement())
-  nombre    String  @db.VarChar(100)
-  documento String  @unique @db.VarChar(20)
-  email     String  @unique @db.VarChar(100)
-  telefono  String? @db.VarChar(20)
-  activo    Boolean @default(true)
-  venta     venta[]
+  id             Int     @id @default(autoincrement())
+  nombre         String  @db.VarChar(100)
+  identificacion String  @unique @db.VarChar(20)
+  email          String  @unique @db.VarChar(100)
+  telefono       String? @db.VarChar(20)
+  activo         Boolean @default(true)
+  venta          venta[]
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
