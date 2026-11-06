@@ -1,4 +1,235 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilos globales: paleta, tipografía y piezas que comparten todas las pantallas. */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --c-carbon: #1f2933;
+  --c-acento: #2f6f9f;
+  --c-fondo: #f4f6f8;
+  --c-borde: #e3e8ee;
+  --c-texto: #1f2933;
+  --c-suave: #6b7785;
+  --c-ok: #1e7a4c;
+  --c-ok-bg: #e3f4ea;
+  --c-alerta: #8a5a00;
+  --c-alerta-bg: #fff1cf;
+  --c-peligro: #b42318;
+  --c-peligro-bg: #fde8e6;
+  --c-neutro: #52606d;
+  --c-neutro-bg: #eaeef2;
+
+  /* Colores de Angular Material (azul acero en lugar del azul por defecto) */
+  --mat-sys-primary: #2f6f9f;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: #d9e8f3;
+  --mat-sys-on-primary-container: #0f2f47;
+  --mat-sys-surface-tint: #2f6f9f;
+
+  /* Todas las tipografías de Material usan Inter */
+  --mat-sys-display-large-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-display-medium-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-display-small-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-headline-large-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-headline-medium-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-headline-small-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-title-large-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-title-medium-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-title-small-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-body-large-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-body-medium-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-body-small-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-label-large-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-label-medium-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --mat-sys-label-small-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--c-fondo);
+  color: var(--c-texto);
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Estructura de página ---------- */
+
+.pagina {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 32px 24px 56px;
+}
+
+.pagina-encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pagina-encabezado h1 {
+  margin: 0;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.subtitulo {
+  margin: 4px 0 0;
+  color: var(--c-suave);
+  font-size: 0.95rem;
+}
+
+.tarjeta {
+  background: #ffffff;
+  border: 1px solid var(--c-borde);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 6px 16px rgba(16, 24, 40, 0.05);
+  overflow: hidden;
+}
+
+.tabla-scroll {
+  overflow-x: auto;
+}
+
+/* ---------- Tablas ---------- */
+
+.tarjeta table {
+  width: 100%;
+  background: transparent;
+}
+
+.tarjeta th.mat-mdc-header-cell {
+  background: #fafbfc;
+  color: var(--c-suave);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--c-borde);
+  white-space: nowrap;
+}
+
+.tarjeta td.mat-mdc-cell {
+  font-size: 0.92rem;
+  border-bottom: 1px solid #eef1f4;
+}
+
+.tarjeta tr.mat-mdc-row:last-child td.mat-mdc-cell {
+  border-bottom: none;
+}
+
+.tarjeta tr.mat-mdc-row {
+  height: 58px;
+  transition: background 0.12s ease;
+}
+
+.tarjeta tr.mat-mdc-row:hover {
+  background: #f6f9fc;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+th.num {
+  padding-right: 24px;
+}
+
+td.num {
+  padding-right: 24px;
+}
+
+.fuerte {
+  font-weight: 600;
+}
+
+.suave {
+  color: var(--c-suave);
+}
+
+.acciones {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.acciones button {
+  color: var(--c-suave);
+}
+
+.acciones button:hover {
+  color: var(--c-acento);
+}
+
+.vacio {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--c-suave);
+}
+
+/* ---------- Etiquetas de estado ---------- */
+
+.chip {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.chip-ok {
+  background: var(--c-ok-bg);
+  color: var(--c-ok);
+}
+
+.chip-alerta {
+  background: var(--c-alerta-bg);
+  color: var(--c-alerta);
+}
+
+.chip-peligro {
+  background: var(--c-peligro-bg);
+  color: var(--c-peligro);
+}
+
+.chip-neutro {
+  background: var(--c-neutro-bg);
+  color: var(--c-neutro);
+}
+
+/* ---------- Formularios en ventana ---------- */
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  min-width: 360px;
+}
+
+.mat-mdc-dialog-title {
+  font-weight: 700 !important;
+}
+
+/* ---------- Pantallas angostas ---------- */
+
+@media (max-width: 720px) {
+  .pagina {
+    padding: 20px 14px 40px;
+  }
+
+  .pagina-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .formulario {
+    min-width: 0;
+  }
+}

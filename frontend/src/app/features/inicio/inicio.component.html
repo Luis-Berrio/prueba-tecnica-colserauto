@@ -1,0 +1,95 @@
+<section class="pagina">
+  <header class="pagina-encabezado">
+    <div>
+      <h1>Resumen</h1>
+      <p class="subtitulo">Un vistazo a las ventas, el inventario y el equipo comercial.</p>
+    </div>
+  </header>
+
+  @if (cargando()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  <div class="indicadores">
+    <div class="tarjeta indicador">
+      <span class="icono azul"><mat-icon>receipt_long</mat-icon></span>
+      <div>
+        <span class="etiqueta">Ventas registradas</span>
+        <strong class="valor">{{ ventas().length }}</strong>
+      </div>
+    </div>
+
+    <div class="tarjeta indicador">
+      <span class="icono verde"><mat-icon>payments</mat-icon></span>
+      <div>
+        <span class="etiqueta">Total vendido</span>
+        <strong class="valor">{{ totalVendido() | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
+      </div>
+    </div>
+
+    <div class="tarjeta indicador">
+      <span class="icono ambar"><mat-icon>inventory_2</mat-icon></span>
+      <div>
+        <span class="etiqueta">Productos con poco stock</span>
+        <strong class="valor">{{ productosStockBajo().length }}</strong>
+      </div>
+    </div>
+
+    <div class="tarjeta indicador">
+      <span class="icono gris"><mat-icon>badge</mat-icon></span>
+      <div>
+        <span class="etiqueta">Vendedores activos</span>
+        <strong class="valor">{{ vendedoresActivos() }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="columnas">
+    <div class="tarjeta panel">
+      <div class="panel-titulo">
+        <h2>Últimas ventas</h2>
+        <a routerLink="/ventas">Ver todas</a>
+      </div>
+      @for (v of ultimasVentas(); track v.id) {
+        <div class="fila">
+          <div>
+            <div class="fuerte">{{ v.producto.nombre }}</div>
+            <div class="suave pequeno">
+              {{ v.vendedor.nombre }} · {{ v.fecha | date: 'dd/MM/yyyy HH:mm' }}
+            </div>
+          </div>
+          <div class="derecha">
+            <div class="fuerte">{{ v.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</div>
+            <div class="suave pequeno">{{ v.cantidad }} und.</div>
+          </div>
+        </div>
+      } @empty {
+        <div class="vacio">Todavía no hay ventas</div>
+      }
+    </div>
+
+    <div class="tarjeta panel">
+      <div class="panel-titulo">
+        <h2>Stock bajo</h2>
+        <a routerLink="/productos">Ver productos</a>
+      </div>
+      @for (p of productosStockBajo(); track p.id) {
+        <div class="fila">
+          <div>
+            <div class="fuerte">{{ p.nombre }}</div>
+            <div class="suave pequeno">{{ p.codigo }}</div>
+          </div>
+          <span
+            class="chip"
+            [class.chip-peligro]="p.stock <= 5"
+            [class.chip-alerta]="p.stock > 5"
+          >
+            {{ p.stock }} und.
+          </span>
+        </div>
+      } @empty {
+        <div class="vacio">Todo el inventario está por encima de {{ umbral }} unidades</div>
+      }
+    </div>
+  </div>
+</section>

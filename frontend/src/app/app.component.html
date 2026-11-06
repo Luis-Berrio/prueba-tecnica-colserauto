@@ -1,11 +1,19 @@
-<mat-toolbar color="primary">
-  <span>Colserauto · Ventas</span>
+<mat-toolbar class="barra">
+  <a class="marca" routerLink="/inicio">
+    <span class="logo"><mat-icon>directions_car</mat-icon></span>
+    <span class="nombre">Colserauto <small>Ventas</small></span>
+  </a>
+
   <span class="spacer"></span>
-  <a mat-button routerLink="/ventas" routerLinkActive="activo">Ventas</a>
-  <a mat-button routerLink="/productos" routerLinkActive="activo">Productos</a>
-  <a mat-button routerLink="/vendedores" routerLinkActive="activo">Vendedores</a>
+
+  <nav class="menu">
+    <a mat-button routerLink="/inicio" routerLinkActive="activo">Inicio</a>
+    <a mat-button routerLink="/ventas" routerLinkActive="activo">Ventas</a>
+    <a mat-button routerLink="/productos" routerLinkActive="activo">Productos</a>
+    <a mat-button routerLink="/vendedores" routerLinkActive="activo">Vendedores</a>
+  </nav>
 </mat-toolbar>
 
-<main class="contenido">
+<main>
   <router-outlet />
 </main>
